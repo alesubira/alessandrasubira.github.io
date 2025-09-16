@@ -1,0 +1,41 @@
+Sub ImportarArquivo()
+
+    Dim caminhoArquivo As String
+    Dim wbOrigem As Workbook
+    Dim wsOrigem As Worksheet
+    Dim wsDestino As Worksheet
+
+    ' Abre a janela para escolher o arquivo
+    caminhoArquivo = Application.GetOpenFilename("Arquivos Excel (*.xlsx), *.xlsx", , "Selecione o arquivo Excel")
+
+    ' Verifica se o usuário cancelou
+    If caminhoArquivo = "False" Then
+        MsgBox "Importação cancelada.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Abre o arquivo selecionado
+    Application.ScreenUpdating = False
+    Application.EnableEvents = False
+    Set wbOrigem = Workbooks.Open(caminhoArquivo)
+
+    ' Define a aba e célula de origem
+    Set wsOrigem = wbOrigem.Worksheets("page") ' Altere para o nome da aba no arquivo de origem
+    With wsOrigem
+        .Activate
+        .Range("A1", .Range("A1").End(xlToRight)).Select
+        .Range(Selection, Selection.End(xlDown)).Copy
+    End With
+
+    ' Define a aba e célula de destino
+    Set wsDestino = ThisWorkbook.Worksheets("RetailSales")
+    wsDestino.Range("A2").PasteSpecial xlPasteValues
+
+    ' Fecha o arquivo de origem sem salvar
+    wbOrigem.Close SaveChanges:=False
+
+    Application.EnableEvents = True
+    Application.ScreenUpdating = True
+
+    'MsgBox "Valor importado com sucesso!", vbInformation
+End Sub
