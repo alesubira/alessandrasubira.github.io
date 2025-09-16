@@ -1,0 +1,4 @@
+'In the beggining
+Application.ScreenUpdating = False
+'In the end
+Application.ScreenUpdating = True
