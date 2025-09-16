@@ -1,0 +1,5 @@
+Sheets("Nome da Sheet").Activate
+    ' Exibe todos os dados (caso haja filtros aplicados)
+    On Error Resume Next ' Evita erro se não houver filtro
+    ActiveSheet.ShowAllData
+    On Error GoTo 0
