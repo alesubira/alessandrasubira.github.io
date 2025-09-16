@@ -1,0 +1,6 @@
+Planilha1.Select
+ActiveSheet.Shapes.Range(Array("Button 41")).Select
+    With Selection.Font
+        .ColorIndex = 5
+    End With
+Application.ScreenUpdating = True
